@@ -1,13 +1,14 @@
 #-*- coding: utf-8 -*-
 # Module for settings panel of Tesseract OCR add-on
 # written by Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail.com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>
-# Copyright (C) 2022-2023 Rui Fontes <rui.fontes@tiflotecnia.com>
+# Copyright (C) 2022-2026 Rui Fontes <rui.fontes@tiflotecnia.com>
 # This file is covered by the GNU General Public License.
 
 # import the necessary modules.
 from .runInThread import *
 from .vars import *
 import urllib.request
+import json
 import gui
 from gui.settingsDialogs import NVDASettingsDialog, SettingsPanel
 from gui import guiHelper
@@ -18,15 +19,15 @@ addonHandler.initTranslation()
 
 lista = []
 langsDesc = []
-docTypesChoices = []
 lang = ""
+docTypesChoices = []
 doc = 3
 shouldAskPwd = False
-shouldDetect = False
 DPI = "300"
 enableBeep = True
+
 from .languages import lista, langsDesc, availableLangs, getAvailableTesseractLanguages
-from .vars import PLUGIN_DIR, docTypesChoices, docTypesLabel, doc, DOC_OSD, DOC_ALL, DOC_TEXT, DPI, dpiList, lang, enableBeep
+from .vars import PLUGIN_DIR, docTypesChoices, docTypesLabel, doc, DOC_OSD, DOC_ALL, DOC_TEXT, DPI, dpiList, lang
 
 initConfiguration()
 
@@ -87,6 +88,20 @@ class OCRSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Set selection to the item set in configurations
 		self.recogDocTypeCB.SetSelection(docTypesLabel.index(doc))
 
+		# Translators: Label of a  combobox used to choose the device  to be used to digitalize
+		deviceLabel = _("&Scanner:")
+		self.deviceCB = sHelper.addLabeledControl(
+			deviceLabel,
+			wx.Choice,
+			choices = WIAList,
+			style = 0
+		)
+		# Set selection to the item set in configurations
+		from .vars import noScanner, scanner
+		if noScanner == True:
+			scanner = _("No scanner found")
+		self.deviceCB.SetSelection(WIAList.index(scanner))
+
 		# Translators: Label of a  combobox used to choose a value for DPI used to digitalize from scanner
 		dpiLabel = _("Resolution in &DPI")
 		self.dpiCB = sHelper.addLabeledControl(
@@ -98,17 +113,13 @@ class OCRSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Set selection to the item set in configurations
 		self.dpiCB.SetSelection(dpiList.index(DPI))
 
-		# Translators: Name  of a checkbox in the configuration dialog asking if orientation paper should be detected
-		self.askDetectOrientation = sHelper.addItem(wx.CheckBox(self, label=_("Detect paper orientation")))
-		self.askDetectOrientation.SetValue(bool(config.conf["tesseractOCR"]["detectOrientation"]))
+		# Translators: Name  of a checkbox in the configuration dialog ask or not for a password
+		self.askPwd = sHelper.addItem(wx.CheckBox(self, label=_("Ask for password")))
+		self.askPwd.SetValue(bool(config.conf["tesseractOCR"]["askPassword"]))
 
 		# Translators: Name  of a checkbox in the configuration dialog to define if beeps should be used
 		self.enableBeep = sHelper.addItem(wx.CheckBox(self, label=_("Enable beeps")))
 		self.enableBeep.SetValue(bool(config.conf["tesseractOCR"]["enableBeep"]))
-
-		# Translators: Name  of a checkbox in the configuration dialog ask or not for a password
-		self.askPwd = sHelper.addItem(wx.CheckBox(self, label=_("Ask for password")))
-		self.askPwd.SetValue(bool(config.conf["tesseractOCR"]["askPassword"]))
 
 	def onAdd(self, evt):
 		# Move the language add to the enabled languages list
@@ -166,7 +177,7 @@ class OCRSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.removeButton.Disable() if len(self.enabledLangs.Items) == 0 else self.removeButton.Enable()
 
 	def onSave (self):
-		global langsDesc, lang, doc, DPI, shouldAskPwd, shouldDetect, enableBeep
+		global langsDesc, lang, doc, DPI, shouldAskPwd, enableBeep
 		# Get old langs
 		oldLangs = []
 		for item in langsDesc:
@@ -194,18 +205,25 @@ class OCRSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		else:
 			doc = 1
 		config.conf["tesseractOCR"]["docType"] = doc
+		config.conf.save()
 
-		# Get the need of asking for a password
-		shouldAskPwd = self.askPwd.GetValue()
-		config.conf["tesseractOCR"]["askPassword"] = shouldAskPwd
+		# Get device to use
+		from .vars import noScanner
+		if noScanner == True:
+			pass
+		else:
+			scanner = WIAList[self.deviceCB.GetSelection()]
+			config.conf["tesseractOCR"]["device"] = scanner
+			config.conf.save()
 
 		# Get OCR DPI resolution
 		DPI = dpiList[self.dpiCB.GetSelection()]
 		config.conf["tesseractOCR"]["dpi"] = DPI
+		config.conf.save()
 
-		# Get the need of detect paper orientation
-		shouldDetect = self.askDetectOrientation.GetValue()
-		config.conf["tesseractOCR"]["detectOrientation"] = shouldDetect
+		# Get the need of asking for a password
+		shouldAskPwd = self.askPwd.GetValue()
+		config.conf["tesseractOCR"]["askPassword"] = shouldAskPwd
 		config.conf.save()
 
 		# Get the setting to use beeps or not

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'tesseractOCR' '2023.04.30'\n"
+"Project-Id-Version: 'tesseractOCR' '2024.11.02'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2024-02-25 16:55+0000\n"
-"PO-Revision-Date: 2024-02-26 21:16+0300\n"
+"POT-Creation-Date: 2026-05-25 15:30+0100\n"
+"PO-Revision-Date: 2026-05-25 15:46+0100\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -16,150 +16,83 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-Basepath: ../../../globalPlugins/tesseractOCR\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: addon\globalPlugins\tesseractOCR\__init__.py:218
-msgid "It is not a true PDF file!"
-msgstr "Bu gerçek bir PDF dosyası değil!"
-
-#: addon\globalPlugins\tesseractOCR\__init__.py:222
-msgid ""
-"The PDF is password protected.\n"
-"\n"
-"If you have introduced the password, make sure it is the correct one.\n"
-"\n"
-"Otherwise, please go to NVDA configurations, TesseractOCR options and mark "
-"the checkbox 'Ask for password'"
-msgstr ""
-"PDF parola korumalıdır.\n"
-"\n"
-"Şifreyi girdiyseniz, doğru olduğundan emin olun.\n"
-"\n"
-"Aksi takdirde, lütfen NVDA konfigürasyonlarına, TesseractOCR seçeneklerine "
-"gidin ve 'Parola sor' onay kutusunu işaretleyin."
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:290
-msgid "Performs OCR to focused file in File Explorer"
-msgstr "Dosya Gezgini'nde odaklanmış dosyaya OCR gerçekleştirir"
-
-#. Translators: Announcing we are not in File Explorer and the key stroke will not do anything...
-#: addon\globalPlugins\tesseractOCR\__init__.py:299
-#: addon\globalPlugins\tesseractOCR\__init__.py:363
-msgid "You are not in File Explorer to perform OCR on a image file..."
-msgstr ""
-"Bir görüntü dosyası üzerinde OCR gerçekleştirmek için Dosya Gezgini'nde "
-"değilsiniz..."
-
-#. Translators: Asking to wait untill the process is concluded
-#: addon\globalPlugins\tesseractOCR\__init__.py:313
-#: addon\globalPlugins\tesseractOCR\__init__.py:329
-#: addon\globalPlugins\tesseractOCR\__init__.py:347
-#: addon\globalPlugins\tesseractOCR\__init__.py:377
-msgid "Processing... Please wait... This operation can takes some seconds..."
-msgstr "İşleniyor... Lütfen bekleyin... Bu işlem birkaç saniye sürebilir..."
-
-#. Translators: Informing that the file is not from supported types...
-#: addon\globalPlugins\tesseractOCR\__init__.py:336
-#: addon\globalPlugins\tesseractOCR\__init__.py:382
-msgid "File not supported"
-msgstr "Dosya desteklenmiyor"
-
-#. For translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:340
-msgid "Performs OCR to a document on the scanner"
-msgstr "Tarayıcı kullanarak taranan belgeye OCR işlemi uygulanır"
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:355
-#| msgid "Performs OCR to focused file in File Explorer"
-msgid "Gets the text from focused accessible PDF file in File Explorer"
-msgstr "Dosya Gezgini'nde odaklanmış erişilebilir PDF dosyasından metni alır"
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:386
-msgid "Cancel scanning"
-msgstr "Taramayı iptal eder"
-
-#. Translators: Informing user the process was terminated
-#: addon\globalPlugins\tesseractOCR\__init__.py:396
-msgid "Scanning process terminated!"
-msgstr "Tarama işlemi sonlandırıldı!"
-
-#. Translators: Asking user to enter the PDF password
-#: addon\globalPlugins\tesseractOCR\__init__.py:408
-msgid "Enter your password"
-msgstr "Parolanızı girin"
-
 #. Translators: Label of a  combobox used to choose a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:42
+#: addon\globalPlugins\tesseractOCR\configPanel.py:44
 msgid "Available recognition &language"
 msgstr "Mevcut di&ller"
 
 #. Translators: Label of a  button used to add more recognition languages
-#: addon\globalPlugins\tesseractOCR\configPanel.py:53
+#: addon\globalPlugins\tesseractOCR\configPanel.py:55
 msgid "&Add"
 msgstr "&Ekle"
 
 #. Translators: Name of a list with the languages selected for OCR use
-#: addon\globalPlugins\tesseractOCR\configPanel.py:57
+#: addon\globalPlugins\tesseractOCR\configPanel.py:59
 msgid "Selected languages"
 msgstr "Seçili diller"
 
 #. Translators: Label of a  button used to remove a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:65
+#: addon\globalPlugins\tesseractOCR\configPanel.py:67
 msgid "&Remove"
 msgstr "&Kaldır"
 
 #. Translators: Label of a  button used to move up a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:69
+#: addon\globalPlugins\tesseractOCR\configPanel.py:71
 msgid "Move &up"
 msgstr "Y&ukarı taşı"
 
 #. Translators: Label of a  button used to move down a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:73
+#: addon\globalPlugins\tesseractOCR\configPanel.py:75
 msgid "&Move down"
 msgstr "A&şağı taşı"
 
 #. Translators: Label of a  combobox used to choose a type of document to recognize
-#: addon\globalPlugins\tesseractOCR\configPanel.py:79
+#: addon\globalPlugins\tesseractOCR\configPanel.py:81
 msgid "&Type of document"
 msgstr "Belge &türü"
 
 #. Translators: Label of a  combobox used to choose the device  to be used to digitalize
-#: addon\globalPlugins\tesseractOCR\configPanel.py:90
+#: addon\globalPlugins\tesseractOCR\configPanel.py:92
 msgid "&Scanner:"
 msgstr "&Tarayıcı:"
 
-#. Getting the selected device in config or the first available...
-#: addon\globalPlugins\tesseractOCR\configPanel.py:100
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:42
-#: addon\globalPlugins\tesseractOCR\vars.py:102
-#: addon\globalPlugins\tesseractOCR\vars.py:106
+#. Reading or setting device to use
+#: addon\globalPlugins\tesseractOCR\configPanel.py:102
+#: addon\globalPlugins\tesseractOCR\vars.py:104
+#: addon\globalPlugins\tesseractOCR\vars.py:113
+#, fuzzy
+#| msgid "Scanner not found."
 msgid "No scanner found"
-msgstr "Tarayıcı bulunamadı"
+msgstr "Tarayıcı bulunamadı."
 
 #. Translators: Label of a  combobox used to choose a value for DPI used to digitalize from scanner
-#: addon\globalPlugins\tesseractOCR\configPanel.py:104
+#: addon\globalPlugins\tesseractOCR\configPanel.py:106
 msgid "Resolution in &DPI"
 msgstr "&DPI olarak çözünürlük"
 
 #. Translators: Name  of a checkbox in the configuration dialog ask or not for a password
-#: addon\globalPlugins\tesseractOCR\configPanel.py:115
+#: addon\globalPlugins\tesseractOCR\configPanel.py:117
 msgid "Ask for password"
 msgstr "Parola sor"
 
-#. Translators: The entry for text only, like books and letters for instance...
-#: addon\globalPlugins\tesseractOCR\configPanel.py:195
-#: addon\globalPlugins\tesseractOCR\vars.py:73
+#. Translators: Name  of a checkbox in the configuration dialog to define if beeps should be used
+#: addon\globalPlugins\tesseractOCR\configPanel.py:121
+msgid "Enable beeps"
+msgstr "Bip seslerini etkinleştir"
+
+#. Translators: The entry for text only, like books and letters for instance.
+#: addon\globalPlugins\tesseractOCR\configPanel.py:201
+#: addon\globalPlugins\tesseractOCR\vars.py:75
 msgid "Text"
 msgstr "Metin"
 
-#. Translators: The entry for various types of docs, invoices, bills, magazines and so on...
-#: addon\globalPlugins\tesseractOCR\configPanel.py:197
-#: addon\globalPlugins\tesseractOCR\vars.py:71
+#. Translators: The entry for various types of docs, invoices, bills, magazines and so on.
+#: addon\globalPlugins\tesseractOCR\configPanel.py:203
+#: addon\globalPlugins\tesseractOCR\vars.py:73
 msgid "Various"
 msgstr "Çeşitli"
 
@@ -237,7 +170,7 @@ msgstr "Yidiş"
 
 #. interrupted before stop
 #. Translators: message to user to report an interuption before stop.
-#: addon\globalPlugins\tesseractOCR\runInThread.py:47
+#: addon\globalPlugins\tesseractOCR\runInThread.py:48
 msgid "interrupted"
 msgstr "kesintiye uğradı"
 
@@ -251,113 +184,173 @@ msgstr ""
 "olduğundan emin olun"
 
 #. Check if are more pages to scan...
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:64
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:75
+#: addon\globalPlugins\tesseractOCR\scanFromWia.py:73
+#: addon\globalPlugins\tesseractOCR\scanFromWia.py:84
 msgid "Do you want to scan one more page?"
 msgstr "Bir sayfa daha taramak istiyor musunuz?"
 
-#. Translators: The entry for various docs,  with auto-orientation...
-#: addon\globalPlugins\tesseractOCR\vars.py:69
-msgid "With auto-orientation"
-msgstr "Otomatik yönlendirme ile"
+#. Translators: The entry for  paper orientation only.
+#: addon\globalPlugins\tesseractOCR\vars.py:71
+#, fuzzy
+#| msgid "Detect paper orientation"
+msgid "Only paper orientation"
+msgstr "Kağıt yönünü algıla"
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on
-#. to be shown on installation and add-on information found in Add-ons Manager.
-#: buildVars.py:23
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:176
+#, fuzzy
+#| msgid "Page is rotated to the right. Do you want to process the OCR?"
+msgid "Page is rotated to the right."
+msgstr "Sayfa sağa dönük. OCR'yi işlemek istiyor musunuz?"
+
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:179
+msgid "Page is upside down."
+msgstr ""
+
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:182
+#, fuzzy
+#| msgid "Page is rotated to the left. Do you want to process the OCR?"
+msgid "Page is rotated to the left."
+msgstr "Sayfa sola dönük. OCR'yi işlemek istiyor musunuz?"
+
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:185
+#, fuzzy
+#| msgid "Page is positioned correctly. Do you want to process the OCR?"
+msgid "Page is positioned correctly."
+msgstr "Sayfa doğru konumlandırılmış. OCR'yi işlemek istiyor musunuz?"
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:187
+#, fuzzy
+#| msgid "Detect paper orientation"
+msgid "Could not detect page orientation."
+msgstr "Kağıt yönünü algıla"
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:255
+msgid "It is not a true PDF file!"
+msgstr "Bu gerçek bir PDF dosyası değil!"
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:258
+msgid ""
+"The PDF is password protected.\n"
+"\n"
+"If you have introduced the password, make sure it is the correct one.\n"
+"\n"
+"Otherwise, please go to NVDA configurations, TesseractOCR options and mark "
+"the checkbox 'Ask for password'"
+msgstr ""
+"PDF parola korumalıdır.\n"
+"\n"
+"Şifreyi girdiyseniz, doğru olduğundan emin olun.\n"
+"\n"
+"Aksi takdirde, lütfen NVDA konfigürasyonlarına, TesseractOCR seçeneklerine "
+"gidin ve 'Parola sor' onay kutusunu işaretleyin."
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:321
+msgid "Performs OCR to focused file in File Explorer"
+msgstr "Dosya Gezgini'nde odaklanmış dosyaya OCR gerçekleştirir"
+
+#. Translators: Announcing we are not in File Explorer and the key stroke will not do anything...
+#: addon\globalPlugins\tesseractOCR\__init__.py:330
+#: addon\globalPlugins\tesseractOCR\__init__.py:396
+msgid "You are not in File Explorer to perform OCR on a image file..."
+msgstr ""
+"Bir görüntü dosyası üzerinde OCR gerçekleştirmek için Dosya Gezgini'nde "
+"değilsiniz..."
+
+#. Translators: Asking to wait untill the process is concluded
+#: addon\globalPlugins\tesseractOCR\__init__.py:344
+#: addon\globalPlugins\tesseractOCR\__init__.py:360
+#: addon\globalPlugins\tesseractOCR\__init__.py:378
+#: addon\globalPlugins\tesseractOCR\__init__.py:410
+msgid "Processing... Please wait... This operation can takes some seconds..."
+msgstr "İşleniyor... Lütfen bekleyin... Bu işlem birkaç saniye sürebilir..."
+
+#. Translators: Informing that the file is not from supported types...
+#: addon\globalPlugins\tesseractOCR\__init__.py:367
+#: addon\globalPlugins\tesseractOCR\__init__.py:415
+msgid "File not supported"
+msgstr "Dosya desteklenmiyor"
+
+#. For translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:371
+msgid "Performs OCR to a document on the scanner"
+msgstr "Tarayıcı kullanarak taranan belgeye OCR işlemi uygulanır"
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:388
+msgid "Gets the text from focused accessible PDF file in File Explorer"
+msgstr "Dosya Gezgini'nde odaklanmış erişilebilir PDF dosyasından metni alır"
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:419
+msgid "Cancel scanning"
+msgstr "Taramayı iptal eder"
+
+#. Translators: Informing user the process was terminated
+#: addon\globalPlugins\tesseractOCR\__init__.py:441
+msgid "Scanning process terminated!"
+msgstr "Tarama işlemi sonlandırıldı!"
+
+#. Translators: Asking user to enter the PDF password
+#: addon\globalPlugins\tesseractOCR\__init__.py:453
+msgid "Enter your password"
+msgstr "Parolanızı girin"
+
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#: buildVars.py:21
 msgid "TesseractOCR: An OCR add-on"
 msgstr "TesseractOCR: Bir OCR eklentisi"
 
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:26
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
+#: buildVars.py:24
+#, fuzzy
 #| msgid ""
+#| "Performs OCR on the selected image file, PDF, JPG, TIF, etc, or  a "
+#| "document through a scanner and also can get the text from an accessible "
+#| "PDF file.\n"
+#| "The results are shown in a text file.\n"
 #| "\n"
-#| "Performs OCR on the selected image file, PDF, JPG, TIF, etc, or in a "
-#| "document through a scanner and shows the results in a browseable "
-#| "message.\n"
 #| "Windows+Control+r - Performs OCR to the selected image file\n"
 #| "Windows+Control+w - Scans and recognize the document in the scanner\n"
+#| "Windows+Control+t - To get the text from an accessible PDF\n"
 msgid ""
-"\n"
 "Performs OCR on the selected image file, PDF, JPG, TIF, etc, or  a document "
 "through a scanner and also can get the text from an accessible PDF file.\n"
-"The results are shown in a text file, ocr.txt.\n"
+"The results are shown in a text file.\n"
 "\n"
 "Windows+Control+r - Performs OCR to the selected image file\n"
 "Windows+Control+w - Scans and recognize the document in the scanner\n"
-"Windows+Control+t - To get the text from an accessible PDF\n"
+"Windows+Control+t - To get the text from an accessible PDF"
 msgstr ""
-"\n"
-"Seçilen görüntü dosyası, PDF, JPG, TIF vb. üzerinde veya bir tarayıcı "
-"aracılığıyla belge üzerinde OCR gerçekleştirir ve ayrıca erişilebilir bir "
-"PDF dosyasından metni alabilir.\n"
-"Sonuçlar bir metin dosyası olan ocr.txt dosyasında gösterilir.\n"
+"Seçilen görüntü dosyası, PDF, JPG, TIF, vb. veya bir tarayıcı aracılığıyla "
+"bir belge üzerinde OCR gerçekleştirir ve ayrıca erişilebilir bir PDF "
+"dosyasından metni alabilir.\n"
+"Sonuçlar bir metin dosyasında gösterilir.\n"
 "\n"
 "Windows+Control+r - Seçilen görüntü dosyasına OCR gerçekleştirir\n"
 "Windows+Control+w - Tarayıcıdaki belgeyi tarar ve tanır\n"
-"Windows+Control+t - Metni erişilebilir bir PDF'den almak için\n"
+"Windows+Control+t - Erişilebilir bir PDF'den metin almak için\n"
 
-#. Author(s)
-#: buildVars.py:37
+#. Brief changelog for this version
+#. Translators: what's new content for the add-on version to be shown in the add-on store
+#: buildVars.py:34
 msgid ""
-"Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail."
-"com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>"
+"Set compatibility with NVDA 2026.1.\n"
+"Updated TesseractOCR to 5.5.0.\n"
+"Updated XPDF to 4.0.6.\n"
+"It is again possible to choose the scanner to use.\n"
+"With Tesseract 5.5 the image orientation is automatically made by "
+"Tesseract.\n"
+"So, the document type \"Only paper orientation\" only announce the "
+"orientation of the image.\n"
+" Now, it only runs on 64-bits machines.\n"
+" Some bugs were corrected."
 msgstr ""
-"Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail."
-"com> ve Abel Passos do Nascimento Jr. <abel.passos@gmail.com>"
 
-#~ msgid ""
-#~ "No WIA devices available. is your scanner conected? and WIA compatibel?"
-#~ msgstr ""
-#~ "Etkin WIA cihazı bulunamadı. Tarayıcınızın bağlı ve WIA destekli "
-#~ "olduğundan emin misiniz?"
-
-#~ msgid ""
-#~ "No TWAIN devices available. is your scanner conected? and TWAIN "
-#~ "compatibel?"
-#~ msgstr ""
-#~ "Etkin TWAIN cihazı bulunamadı. tarayıcınızın bağlı ve TWAIN uyumlu "
-#~ "olduğundan emin misiniz?"
-
-#~ msgid "Scanning via TWAIN Scanner and recognization with Windows OCR"
-#~ msgstr "TWAIN Tarayıcı ile tarama ve Windows OCR ile tanıma"
-
-#~ msgid "Process wia-cmd-scanner failed:\n"
-#~ msgstr "Wia-cmd-tarayıcı işlemi başarısız oldu:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Please make sure your scanner is WIA-compliant and can scan in another "
-#~ "application before trying again!"
-#~ msgstr ""
-#~ "\n"
-#~ "Lütfen tekrar denemeden önce tarayıcınızın WIA uyumlu olduğundan ve başka "
-#~ "bir uygulamada çalıştığından emin olun!"
-
-#~ msgid "TesseractOCR"
-#~ msgstr "TesseractOCR"
-
-#~ msgid "Show password"
-#~ msgstr "Parolayı göster"
-
-#~ msgid "Check for updates at startup"
-#~ msgstr "Başlangıçta güncellemeleri denetle"
-
-#~ msgid ""
-#~ "It is available a new version of this add-on.\n"
-#~ " Do you want to update?"
-#~ msgstr ""
-#~ "Bu eklentinin yeni sürümü mevcut.\n"
-#~ " Güncellemek istiyor musunuz?"
-
-#~ msgid ""
-#~ "This new version of this add-on is not compatible with your version of "
-#~ "NVDA.\n"
-#~ " The update process will be terminated."
-#~ msgstr ""
-#~ "Bu yeni sürüm, NVDA sürümünüzle uyumlu değil.\n"
-#~ " Güncelleme işlemi sonlandırılacak."
-
-#~ msgid "&Import language"
-#~ msgstr "&İthalat dili"

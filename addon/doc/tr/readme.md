@@ -10,7 +10,7 @@
 
 Bu eklenti, bir görüntü dosyası, PDF, JPG, TIF veya diğerleri üzerinde açmaya gerek kalmadan optik karakter tanıma gerçekleştirmek için ücretsiz ve açık kaynaklı Tesseract OCR motorunu kullanır.  
 Ayrıca, WIA özellikli tarayıcılara erişebilmek ve bir kağıt belgeye OCR yapabilmek için wia-cmd-Tarayıcı'sı kullanır.  
-Finally, it also can get the accessible text from an accessible PDF.
+Son olarak, erişilebilir metni erişilebilir bir PDF'den de alabilir.  
 NVDA menüsü, Tercihler, Ayarlar içerisinde tanımada kullanılacak dilleri ve tanınacak belge türlerini yapılandırabileceğiniz bir TesseractOCR bölümü eklenmiştir.  
 Bu iletişim kutusunda, parola korumalı PDF dosyalarına OCR yapabilmek için parola sorulmasını işaretleyebilirsiniz.  
 Bu seçeneği işaretlediyseniz ve PDF'nin bir parolası yoksa, parola soran iletişim kutusunda Enter'a basmanız yeterlidir.  
@@ -23,24 +23,19 @@ Bu nedenle, tanıma sonucu tatmin edici değilse, başka bir dil sıralaması de
 
 ## Kısayollar:
 
-Varsayılan komutlar şunlardır:  
-Windows+Control+w - tarayıcı aracılığıyla bir belgeyi taramak ve OCR yapmak için;
-Windows+Control+r - to recognize the selected document;
-Windows+Control+t - To get the text from an accessible PDF;
-Windows+Control+c - To cancel the scanning process.
-Please note: It must be issued before the dialog asking if you want to scan more pages appear!
+Varsayılan komutlar şunlardır:
+
+* Windows+Kontrol+w - tarayıcı aracılığıyla bir belgeyi taramak ve OCR yapmak için;
+* Windows+Kontrol+r - seçilen belgeyi tanımak için;
+* Windows+Kontrol+t - Metni erişilebilir bir PDF'den almak için;
+* Windows+Kontrol+c - Tarama işlemini iptal etmek için.
+
+Lütfen unutmayın: Daha fazla sayfa taramak isteyip istemediğinizi soran iletişim kutusu görünmeden önce verilmelidir!
 
 Ardından, tanınan metinle ocr.txt dosyasının açılmasını bekleyin.  
 Tanınan metni korumak istiyorsanız, geçici dizindeki tüm dosyalar bir sonraki OCR işleminin başlangıcında silineceğinden, belgeyi başka bir ad altında ve başka bir konuma kaydetmeyi unutmayın!  
 
-Bu komutlar, "Girdi hareketleri" "TesseractOCR" bölümündeki  iletişim kutusunda değiştirilebilir.  
-
-
-## Otomatik güncelleme:
-
-Bu eklenti bir otomatik güncelleme özelliği içerir.  
-NVDA her açıldığında yeni bir sürüm kontrolü gerçekleştirilecektir.  
-Bunu istiyorsanız, NVDA, Tercihler, Ayarlar'a gidin ve eklenti kategorisinde onay kutusunu işaretleyin.  
+Bu komutlar, "Girdi hareketleri" iletişim kutusunda "TesseractOCR" dalı altından değiştirilebilir.  
 
 
 ## Bilinen sorunlar:
@@ -54,6 +49,7 @@ Bu Tesseract ile ilgili bilinen bir sorundur ve çok fazla işlem süresi tüket
 ## Desteklenen diller:
 
 Bu sürümde desteklenen diller şunlardır:
+
 * Afrikaner Dili
 * Arnavutça
 * Amharca
@@ -169,21 +165,22 @@ Bu sürümde desteklenen diller şunlardır:
 ## Desteklenen resim türleri:
 
 Bu eklenti aşağıdaki dosya türlerini destekler:
-* PDF,  
-* jpg,  
-* tif,  
-* png,  
-* bmp,  
-* pnm,  
-* pbm,  
-* pgm,  
-* jp2,  
-* gif,  
-* jfif,  
-* jpeg,  
-* tiff,  
-* spix,  
-* webp,  
+
+* PDF,
+* jpg,
+* tif,
+* png,
+* bmp,
+* pnm,
+* pbm,
+* pgm,
+* jp2,
+* gif,
+* jfif,
+* jpeg,
+* tiff,
+* spix,
+* webp,
 
 
-[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2024.03.24/tesseractOCR-2024.03.24.nvda-addon
+[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2025.06.14/tesseractOCR-2025.06.14.nvda-addon

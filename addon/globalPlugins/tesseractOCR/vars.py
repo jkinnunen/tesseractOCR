@@ -1,8 +1,8 @@
 #-*- coding: utf-8 -*-
 # Variables for the TesseractOCR add-on
 # written by Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail.com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>
-# Colaboration of Chatt GPT ito list available scanners...
-# Copyright (C) 2022-2024 Rui Fontes <rui.fontes@tiflotecnia.com>
+# Colaboration of Chatt GPT in list available scanners...
+# Copyright (C) 2022-2026 Rui Fontes <rui.fontes@tiflotecnia.com>
 # This file is covered by the GNU General Public License.
 
 # import the necessary modules.
@@ -14,7 +14,7 @@ import config
 import comtypes.client
 import addonHandler
 
-# Start the translation process
+# To start the translation process
 addonHandler.initTranslation()
 
 # Location of executables:
@@ -31,17 +31,17 @@ pngFilesPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr")+"\""    # Folder 
 listPath = "\""+os.path.join (PLUGIN_DIR, "list.txt")+"\""             # Location of the PNG files list
 ocrTxtPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr.txt")+"\""  # Location of the text file with the results
 textFilesPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr.txt")+"\"" # Folder where to place the txt file extracted from the PDF file
+#jpgFilePath = os.path.join(PLUGIN_DIR, "images")
 
 def initConfiguration():
 	confspec = {
 		"language" : "string(default="")",
-		"docType" : "integer(default=6)",
+		"docType" : "integer(default=3)",
 		"askPassword" : "boolean(default=false)",
 		"dpi": "string(default="")",
-		"detectOrientation" : "boolean(default=false)",
+		"device" : "string(default="")",
 		"enableBeep" : "boolean(default=True)",
 	}
-
 	config.conf.spec["tesseractOCR"] = confspec
 
 initConfiguration()
@@ -67,11 +67,11 @@ DOC_OSD = 1
 DOC_ALL = 3
 DOC_TEXT = 6
 DOC_LABELS = {
-	# Translators: The entry for various docs,  with auto-orientation...
-	DOC_OSD : pgettext("docType", _("With auto-orientation")),
-	# Translators: The entry for various types of docs, invoices, bills, magazines and so on...
+	# Translators: The entry for  paper orientation only.
+	DOC_OSD : pgettext("docType", _("Only paper orientation")),
+	# Translators: The entry for various types of docs, invoices, bills, magazines and so on.
 	DOC_ALL : pgettext("docType", _("Various")),
-	# Translators: The entry for text only, like books and letters for instance...
+	# Translators: The entry for text only, like books and letters for instance.
 	DOC_TEXT : pgettext("docType", _("Text"))
 }
 docTypesLabel = (DOC_OSD, DOC_ALL, DOC_TEXT)
@@ -93,12 +93,34 @@ except KeyError:
 
 dpiList = ["150", "200", "300", "400"]
 
-# Reading if is needed to detect paper orientation
-try:
-	if config.conf["tesseractOCR"]["detectOrientation"]:
-		shouldDetect = config.conf["tesseractOCR"]["detectOrientation"]
-except KeyError:
-	shouldDetect = False
+# Create a list of WIA devices for settings panel
+global noScanner
+noScanner = False
+# Create WIA connection
+d = comtypes.client.CreateObject("WIA.DeviceManager")
+# Check if WIA devices are present
+if not d.DeviceInfos.count:
+	noScanner = True
+	WIAList = [_("No scanner found")]
+else:
+	k = d.DeviceInfos.count
+	n = 0
+	WIAList = []
+	for n in range(k):
+		WIAList.append(d.DeviceInfos[n+1].Properties["Name"].Value)
+
+# Reading or setting device to use
+noScannerStr = _("No scanner found")
+saved = config.conf.get("tesseractOCR", {}).get("device")
+if WIAList[0] == noScannerStr:
+	# No scanner present
+	scanner = noScannerStr
+elif saved in WIAList:
+	# Scanner in configuration is valid
+	scanner = saved
+else:
+	# Scanner in configuration is not present
+	scanner = WIAList[0]
 
 # Reading if beeps should be used or not
 try:

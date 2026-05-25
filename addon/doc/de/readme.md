@@ -1,76 +1,86 @@
 # TesseractOCR
 
-
 * Autoren: Rui Fontes, Ângelo Abrantes und Abel Passos do Nascimento Jr.
-* Laden Sie die [stabile Version][1] herunter
+* [stabile Version] herunterladen[1]
 * Kompatibilität: NVDA-Version 2019.3 und höher
 
+## Information
 
-## Informationen
+Dieses Add-on verwendet die kostenlose und Open-Source-OCR-Engine (Texterkennung) Tesseract, um eine optische Zeichenerkennung an einem Bilddokument durchzuführen, sei es PDF, JPG, TIF oder andere, ohne dass das Dokument geöffnet werden muss.
 
-Dieses Add-on verwendet die kostenlose und Open-Source-OCR-Engine Tesseract, um eine optische Zeichenerkennung für eine Bilddatei, PDF, JPG, TIF oder andere durchzuführen, ohne sie öffnen zu müssen.
-Es verwendet auch wia-cmd-scanner, um auf WIA-fähige Scanner zuzugreifen und OCR für ein Papierdokument durchzuführen.
-Finally, it also can get the accessible text from an accessible PDF.
-Im NVDA-Menü, Einstellungen, wird ein Abschnitt TesseractOCR hinzugefügt, in dem Sie die für die Erkennung zu verwendenden Sprachen und die Art der zu erkennenden Dokumente konfigurieren können.
-In diesem Dialog können Sie, um OCR an passwortgeschützten PDF-Dateien durchführen zu können, markieren, dass Sie nach einem Passwort gefragt werden.
-Wenn Sie diese Option aktiviert haben und das PDF kein Passwort hat, drücken Sie einfach die Eingabetaste im Dialogfeld, in dem Sie nach dem Passwort gefragt werden.
-Mit Ausnahme von Englisch und Portugiesisch, die bereits im Add-on enthalten sind, werden die anderen Sprachen heruntergeladen und installiert, wenn Sie eine Sprache auswählen, die noch nicht im Add-on vorhanden ist.
-Beachten Sie, dass der OCR-Vorgang mit zunehmender Anzahl ausgewählter Erkennungssprachen länger dauert.
-Wir empfehlen daher, nur die Sprachen zu verwenden, die Sie benötigen.
-Beachten Sie auch, dass die Qualität der Erkennung je nach Reihenfolge der Sprachen variieren kann.
-Wenn das Erkennungsergebnis nicht zufriedenstellend ist, sollten Sie es daher mit einer anderen Sprachreihenfolge versuchen.
+Das Ergebnis wird in einem Textdokument mit demselben Namen wie das Original, aber mit der Erweiterung .txt im selben Ordner gespeichert.
 
+Es ermöglicht auch den Zugriff auf WIA-kompatible Scanner, um OCR auf einem Papierdokument durchzuführen. In diesem Fall wird das Dokument mit dem Ergebnis im Ordner „Dokumente“ des Benutzers mit dem Namen OCR.txt abgelegt.
 
-## Abkürzung
+Schließlich können Sie Text aus einem barrierefreien PDF abrufen und ihn im Notepad anzeigen.
+
+## Einstellungen 
+
+Im NVDA-Menü „Einstellungen“ wird ein Abschnitt „TesseractOCR“ hinzugefügt, in dem Sie Folgendes konfigurieren können:
+
+- Sprachen, die bei der Erkennung verwendet werden sollen.
+- die Art der zu erkennenden Dokumente.
+- ob nach einem Passwort für das PDF gefragt werden soll oder nicht. Wenn diese Option ausgewählt ist und die PDF-Datei kein Passwort hat, drücken Sie einfach die Eingabetaste im Dialogfeld, in dem Sie nach dem Passwort gefragt werden.
+- den WIA-Scanner auswählen.
+-  Die Scannerauflösung kann zwischen 150 und 400 DPP eingestellt werden.
+
+Mit Ausnahme von Portugiesisch und Englisch, die bereits im Add-on enthalten sind, werden die restlichen Sprachen heruntergeladen und installiert, wenn eine Sprache ausgewählt wird, die noch nicht im Add-on vorhanden ist.
+
+Dies muss mit Deutsch einmal gemacht werden, damit die Erweiterung ordnungsgemäß funktioniert.
+
+Beachten Sie, dass der OCR-Vorgang länger dauert, wenn Sie die Anzahl der ausgewählten Erkennungssprachen erhöhen. Wir empfehlen daher, nur die erforderlichen Sprachen zu verwenden.
+
+Beachten Sie außerdem, dass die Qualität der Erkennung je nach Reihenfolge der Sprachen variieren kann. Wenn das Erkennungsergebnis nicht zufriedenstellend ist, können Sie daher eine andere Reihenfolge  versuchen.
+
+## Befehle
 
 Die Standardbefehle sind:
-Windows+Strg+r - um das ausgewählte Dokument zu erkennen;
-Windows+Strg+w - zum Scannen und Erkennen eines Dokuments über den WIA-Scanner.
-Windows+Control+t - To get the text from an accessible PDF;
-Windows+Control+c - To cancel the scanning process.
-Please note: It must be issued before the dialog asking if you want to scan more pages appear!
 
-Warten Sie dann einfach, bis sich ocr.txt mit dem erkannten Text öffnet.
-Wenn Sie den erkannten Text erhalten möchten, vergessen Sie nicht, das Dokument unter einem anderen Namen und an einem anderen Ort zu speichern, da alle Dateien im temporären Verzeichnis beim Start des nächsten OCR-Vorgangs gelöscht werden!
+* Windows+Strg+w – Zum Scannen und Erkennen eines Dokuments mit dem Scanner;
+* Windows+Strg+r – Zum Erkennen der ausgewählten Datei;
+* Windows+Strg+t – Um Text aus einer barrierefreien PDF-Datei abzurufen.
+* Windows+Strg+c – Um den Scanvorgang abzubrechen.
 
-Diese Befehle können im Dialog "Eingabegesten" im Abschnitt "TesseractOCR" geändert werden.
+Hinweis: Es muss gewartet  werden, bevor das Dialogfeld mit der Frage erscheint, ob Sie weitere Seiten scannen möchten!
 
+Warten Sie dann einfach, bis die Datei ocr.txt mit dem erkannten Text angezeigt wird.
+
+Diese Befehle können im Dialogfeld „Befehle definieren“ im Abschnitt „TesseractOCR“ geändert werden.
 
 ## Bekannte Probleme
 
-* In einigen Systemen ist es möglich, dass Add-Ons aufgrund eines Comtypes-Fehlers nicht funktionieren ...
-Auf manchen Rechnern reicht es aus, in den temporären Ordner zu gehen und den Ordner comtypes_cache zu löschen.
-* Bei Auswahl der Option „Verschiedene“ in der Combobox „Dokumententyp“ erscheint der erkannte Text wahrscheinlich mit vielen Leerzeilen
-Dies ist ein bekanntes Problem mit Tesseract, und ohne viel Verarbeitungszeit zu verbrauchen, habe ich noch keine Lösung gefunden. Aber ich habe immer noch nicht aufgegeben!
-
+* Wenn Sie im Kombinationsfeld „Dokumenttyp“ die Option "Verschiedene" auswählen, enthält der erkannte Text wahrscheinlich viele Leerzeilen
+Dies ist ein bekanntes Tesseract-Problem, und ohne dass es viel Verarbeitungszeit in Anspruch nimmt, haben wir noch keine Lösung gefunden. Aber wir haben trotzdem nicht aufgegeben!
 
 ## Unterstützte Sprachen
 
-Die unterstützten Sprachen in dieser Version sind:* Afrikaner
+Die in dieser Version unterstützten Sprachen sind:
+
+* Afrikaans
 * Albanisch
-* Amharik
+* Amharisch
 * Arabisch
 * Armenisch
 * Assamesisch
 * Aserbaidschanisch (Latein)
 * Baskisch
-* Belarussisch
-* Bengalisch
+* Weißrussisch
+* Bengali
 * Bosnisch
 * Bretonisch
 * Bulgarisch
-* Burnesisch
+* Burnese
 * Katalanisch/Valencianisch
 * Cebuano
 * Cherokee
 * Vereinfachtes Chinesisch
-* Chinesische Tradition
-* Korsisch
+* Traditionelles Chinesisch
+*Korsisch
 * Kroatisch
 * Tschechisch
-* Dannisch
+* Dänisch
 * Deutsch
-* Divehi
+* Dhivehi
 * Niederländisch (Flämisch)
 * Dzongkha
 * Englisch
@@ -83,7 +93,7 @@ Die unterstützten Sprachen in dieser Version sind:* Afrikaner
 * Galizisch
 * Georgisch
 * Griechisch
-* Gujarati
+* Gujarat
 * Haitianisch
 * Hebräisch
 * Hindi
@@ -95,15 +105,15 @@ Die unterstützten Sprachen in dieser Version sind:* Afrikaner
 * Italienisch
 * Javanisch
 * Japanisch
-* Kanada
+* Kannada
 * Kasachisch
 * Khmer (Zentral)
-* Kirgisen
+* Kirgisisch
 * Koreanisch
-* Kurdisches Kurmandschi
-* Lao
+* Kurmanji Kurdisch
+* Laotisch
 * Latein
-* Lettland
+* Lettisch
 * Litauisch
 * Luxemburgisch
 * Mazedonisch
@@ -112,26 +122,26 @@ Die unterstützten Sprachen in dieser Version sind:* Afrikaner
 * Maltesisch
 * Maori
 * Marathi
-* Math / Gleichungserkennungsmodul
+* Mathematische Gleichungen
 * Mongolisch
-* Nepali
+* Nepalesisch
 * Norwegisch
 * Okzitanisch
-* Orija
-* Pandschabi
-* Paschtu
+* Oriya
+* Panjabi
+* Afghanisch
 * Persisch
-* Polieren
+* Polnisch
 * Portugiesisch
 * Quechua
-* Rumänisch/Moldave
+* Rumänisch/Moldauisch
 * Russisch
 * Sanskrit
-* Schottisch Gälisch
+* Schottisch-Gälisch
 * Serbisch (Latein)
-* Slowakisch)
-* Slowenisch)
-* Sindhi
+* Slowakisch
+* Slowenisch
+* Sindi
 * Singhalesisch
 * Spanisch
 * Sundanesisch
@@ -139,17 +149,17 @@ Die unterstützten Sprachen in dieser Version sind:* Afrikaner
 * Schwedisch
 * Syrisch
 * Tadschikisch
-* Tamilisch
-* Tatarisch
+* Tamil
+* Zahnstein
 * Telugu
 * Thailändisch
 * Tibetisch
-* Tigrinja
-* Tonga
+* Tigrinien
+* Tonganisch
 * Türkisch
-* Uiguren
+* Uigur
 * Ukrainisch
-* Urdu
+* Urdu 
 * Usbekisch (Latein)
 * Vietnamesisch
 * Walisisch
@@ -157,24 +167,30 @@ Die unterstützten Sprachen in dieser Version sind:* Afrikaner
 * Jiddisch
 * Yoruba
 
-
 ## Unterstützte Bildtypen
 
-Dieses Add-On unterstützt die folgenden Dateitypen:
-* Pdf
+Dieses Add-on unterstützt die folgenden Dateitypen:
+
+* PDF
 * jpg
-* tif
+* tiff
 * png
 * bmp
 * pnm
 * pbm
 * pgm
 * jp2
-* Gif
+* gif
 * jfif
-* JPEG
+* jpeg
 * tiff
 * spix
 * webp
 
-[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2024.03.24/tesseractOCR-2024.03.24.nvda-addon
+## Deutsche Übersetzung 
+
+ Diese Übersetzung wurde vom NVDA-Team im [BFW Würzburg][2] erstellt.
+
+[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2025.06.14/tesseractOCR-2025.06.14.nvda-addon
+
+[2]: https://www.bfw-wuerzburg.de

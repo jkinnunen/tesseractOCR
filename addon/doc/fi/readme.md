@@ -181,4 +181,4 @@ Tämä lisäosa tukee seuraavia tiedostotyyppejä:
 * WebP
 
 
-[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2024.03.24/tesseractOCR-2024.03.24.nvda-addon
+[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2025.06.14/tesseractOCR-2025.06.14.nvda-addon

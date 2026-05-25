@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tesseractOCR 1.0\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2024-10-22 01:56+0100\n"
-"PO-Revision-Date: 2024-10-24 01:08+0100\n"
+"POT-Creation-Date: 2026-05-25 15:30+0100\n"
+"PO-Revision-Date: 2026-05-25 15:36+0100\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,159 +16,82 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../globalPlugins/tesseractOCR\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 
-#. Announce orientation and ask if should process OCR
-#: addon\globalPlugins\tesseractOCR\__init__.py:178
-msgid "Page is rotated to the right. Do you want to process the OCR?"
-msgstr ""
-
-#. Announce orientation and ask if should process OCR
-#: addon\globalPlugins\tesseractOCR\__init__.py:183
-msgid "Page is upside down. Do you want to process the OCR?"
-msgstr ""
-
-#. Announce orientation and ask if should process OCR
-#: addon\globalPlugins\tesseractOCR\__init__.py:188
-msgid "Page is rotated to the left. Do you want to process the OCR?"
-msgstr ""
-
-#. Announce orientation and ask if should process OCR
-#: addon\globalPlugins\tesseractOCR\__init__.py:193
-msgid "Page is positioned correctly. Do you want to process the OCR?"
-msgstr ""
-
-#: addon\globalPlugins\tesseractOCR\__init__.py:266
-msgid "It is not a true PDF file!"
-msgstr ""
-
-#: addon\globalPlugins\tesseractOCR\__init__.py:269
-msgid ""
-"The PDF is password protected.\n"
-"\n"
-"If you have introduced the password, make sure it is the correct one.\n"
-"\n"
-"Otherwise, please go to NVDA configurations, TesseractOCR options and mark "
-"the checkbox 'Ask for password'"
-msgstr ""
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:326
-msgid "Performs OCR to focused file in File Explorer"
-msgstr ""
-
-#. Translators: Announcing we are not in File Explorer and the key stroke will not do anything...
-#: addon\globalPlugins\tesseractOCR\__init__.py:336
-#: addon\globalPlugins\tesseractOCR\__init__.py:404
-msgid "You are not in File Explorer to perform OCR on a image file..."
-msgstr ""
-
-#. Translators: Asking to wait untill the process is concluded
-#: addon\globalPlugins\tesseractOCR\__init__.py:350
-#: addon\globalPlugins\tesseractOCR\__init__.py:366
-#: addon\globalPlugins\tesseractOCR\__init__.py:385
-#: addon\globalPlugins\tesseractOCR\__init__.py:417
-msgid "Processing... Please wait... This operation can takes some seconds..."
-msgstr ""
-
-#. Translators: Informing that the file is not from supported types...
-#: addon\globalPlugins\tesseractOCR\__init__.py:373
-#: addon\globalPlugins\tesseractOCR\__init__.py:422
-msgid "File not supported"
-msgstr ""
-
-#. For translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:377
-msgid "Performs OCR to a document on the scanner"
-msgstr ""
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:395
-msgid "Gets the text from focused accessible PDF file in File Explorer"
-msgstr ""
-
-#. Translators: Message to be announced during Keyboard Help
-#: addon\globalPlugins\tesseractOCR\__init__.py:426
-msgid "Cancel scanning"
-msgstr ""
-
-#. Translators: Informing user the process was terminated
-#: addon\globalPlugins\tesseractOCR\__init__.py:445
-msgid "Scanning process terminated!"
-msgstr ""
-
-#. Translators: Asking user to enter the PDF password
-#: addon\globalPlugins\tesseractOCR\__init__.py:457
-msgid "Enter your password"
-msgstr ""
-
 #. Translators: Label of a  combobox used to choose a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:43
+#: addon\globalPlugins\tesseractOCR\configPanel.py:44
 msgid "Available recognition &language"
 msgstr ""
 
 #. Translators: Label of a  button used to add more recognition languages
-#: addon\globalPlugins\tesseractOCR\configPanel.py:54
+#: addon\globalPlugins\tesseractOCR\configPanel.py:55
 msgid "&Add"
 msgstr ""
 
 #. Translators: Name of a list with the languages selected for OCR use
-#: addon\globalPlugins\tesseractOCR\configPanel.py:58
+#: addon\globalPlugins\tesseractOCR\configPanel.py:59
 msgid "Selected languages"
 msgstr ""
 
 #. Translators: Label of a  button used to remove a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:66
+#: addon\globalPlugins\tesseractOCR\configPanel.py:67
 msgid "&Remove"
 msgstr ""
 
 #. Translators: Label of a  button used to move up a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:70
+#: addon\globalPlugins\tesseractOCR\configPanel.py:71
 msgid "Move &up"
 msgstr ""
 
 #. Translators: Label of a  button used to move down a recognition language
-#: addon\globalPlugins\tesseractOCR\configPanel.py:74
+#: addon\globalPlugins\tesseractOCR\configPanel.py:75
 msgid "&Move down"
 msgstr ""
 
 #. Translators: Label of a  combobox used to choose a type of document to recognize
-#: addon\globalPlugins\tesseractOCR\configPanel.py:80
+#: addon\globalPlugins\tesseractOCR\configPanel.py:81
 msgid "&Type of document"
 msgstr ""
 
+#. Translators: Label of a  combobox used to choose the device  to be used to digitalize
+#: addon\globalPlugins\tesseractOCR\configPanel.py:92
+msgid "&Scanner:"
+msgstr ""
+
+#. Reading or setting device to use
+#: addon\globalPlugins\tesseractOCR\configPanel.py:102
+#: addon\globalPlugins\tesseractOCR\vars.py:104
+#: addon\globalPlugins\tesseractOCR\vars.py:113
+msgid "No scanner found"
+msgstr ""
+
 #. Translators: Label of a  combobox used to choose a value for DPI used to digitalize from scanner
-#: addon\globalPlugins\tesseractOCR\configPanel.py:91
+#: addon\globalPlugins\tesseractOCR\configPanel.py:106
 msgid "Resolution in &DPI"
 msgstr ""
 
-#. Translators: Name  of a checkbox in the configuration dialog asking if orientation paper should be detected
-#: addon\globalPlugins\tesseractOCR\configPanel.py:102
-msgid "Detect paper orientation"
-msgstr ""
-
-#. Translators: Name  of a checkbox in the configuration dialog to define if beeps should be used
-#: addon\globalPlugins\tesseractOCR\configPanel.py:106
-msgid "Enable beeps"
-msgstr ""
-
 #. Translators: Name  of a checkbox in the configuration dialog ask or not for a password
-#: addon\globalPlugins\tesseractOCR\configPanel.py:110
+#: addon\globalPlugins\tesseractOCR\configPanel.py:117
 msgid "Ask for password"
 msgstr ""
 
-#. Translators: The entry for text only, like books and letters for instance...
-#: addon\globalPlugins\tesseractOCR\configPanel.py:190
-#: addon\globalPlugins\tesseractOCR\vars.py:76
+#. Translators: Name  of a checkbox in the configuration dialog to define if beeps should be used
+#: addon\globalPlugins\tesseractOCR\configPanel.py:121
+msgid "Enable beeps"
+msgstr ""
+
+#. Translators: The entry for text only, like books and letters for instance.
+#: addon\globalPlugins\tesseractOCR\configPanel.py:201
+#: addon\globalPlugins\tesseractOCR\vars.py:75
 msgid "Text"
 msgstr ""
 
-#. Translators: The entry for various types of docs, invoices, bills, magazines and so on...
-#: addon\globalPlugins\tesseractOCR\configPanel.py:192
-#: addon\globalPlugins\tesseractOCR\vars.py:74
+#. Translators: The entry for various types of docs, invoices, bills, magazines and so on.
+#: addon\globalPlugins\tesseractOCR\configPanel.py:203
+#: addon\globalPlugins\tesseractOCR\vars.py:73
 msgid "Various"
 msgstr ""
 
@@ -250,57 +173,122 @@ msgstr ""
 msgid "interrupted"
 msgstr ""
 
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:27
-msgid "No scanner found. Please check the device connection."
+#. Translators: Reported when no WIA devices are available
+#: addon\globalPlugins\tesseractOCR\scanFromWia.py:37
+msgid ""
+"No WIA devices available. Please check if your scanner is conected and if is "
+"WIA compatible"
 msgstr ""
 
-#. If more than one scanner is found, display a list for the user to choose from
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:43
-msgid "Select the scanner to use:"
-msgstr ""
-
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:43
-msgid "Available Scanners"
-msgstr ""
-
-#. Ask if the user wants to scan another page
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:68
+#. Check if are more pages to scan...
+#: addon\globalPlugins\tesseractOCR\scanFromWia.py:73
+#: addon\globalPlugins\tesseractOCR\scanFromWia.py:84
 msgid "Do you want to scan one more page?"
 msgstr ""
 
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:91
-msgid "Error during scanning: {}"
+#. Translators: The entry for  paper orientation only.
+#: addon\globalPlugins\tesseractOCR\vars.py:71
+msgid "Only paper orientation"
 msgstr ""
 
-#. Set the scanning area (full page)
-#. Horizontal start
-#. Vertical start
-#. Maximum width
-#. Maximum height
-#. Return the configured scanner
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:120
-msgid "Scanner not found."
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:176
+msgid "Page is rotated to the right."
 msgstr ""
 
-#: addon\globalPlugins\tesseractOCR\scanFromWia.py:128
-msgid "No scanner was selected or found."
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:179
+msgid "Page is upside down."
 msgstr ""
 
-#. Translators: The entry for various docs,  with auto-orientation...
-#: addon\globalPlugins\tesseractOCR\vars.py:72
-msgid "With auto-orientation"
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:182
+msgid "Page is rotated to the left."
 msgstr ""
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on
-#. to be shown on installation and add-on information found in Add-ons Manager.
-#: buildVars.py:23
+#. Announce orientation
+#: addon\globalPlugins\tesseractOCR\__init__.py:185
+msgid "Page is positioned correctly."
+msgstr ""
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:187
+msgid "Could not detect page orientation."
+msgstr ""
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:255
+msgid "It is not a true PDF file!"
+msgstr ""
+
+#: addon\globalPlugins\tesseractOCR\__init__.py:258
+msgid ""
+"The PDF is password protected.\n"
+"\n"
+"If you have introduced the password, make sure it is the correct one.\n"
+"\n"
+"Otherwise, please go to NVDA configurations, TesseractOCR options and mark "
+"the checkbox 'Ask for password'"
+msgstr ""
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:321
+msgid "Performs OCR to focused file in File Explorer"
+msgstr ""
+
+#. Translators: Announcing we are not in File Explorer and the key stroke will not do anything...
+#: addon\globalPlugins\tesseractOCR\__init__.py:330
+#: addon\globalPlugins\tesseractOCR\__init__.py:396
+msgid "You are not in File Explorer to perform OCR on a image file..."
+msgstr ""
+
+#. Translators: Asking to wait untill the process is concluded
+#: addon\globalPlugins\tesseractOCR\__init__.py:344
+#: addon\globalPlugins\tesseractOCR\__init__.py:360
+#: addon\globalPlugins\tesseractOCR\__init__.py:378
+#: addon\globalPlugins\tesseractOCR\__init__.py:410
+msgid "Processing... Please wait... This operation can takes some seconds..."
+msgstr ""
+
+#. Translators: Informing that the file is not from supported types...
+#: addon\globalPlugins\tesseractOCR\__init__.py:367
+#: addon\globalPlugins\tesseractOCR\__init__.py:415
+msgid "File not supported"
+msgstr ""
+
+#. For translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:371
+msgid "Performs OCR to a document on the scanner"
+msgstr ""
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:388
+msgid "Gets the text from focused accessible PDF file in File Explorer"
+msgstr ""
+
+#. Translators: Message to be announced during Keyboard Help
+#: addon\globalPlugins\tesseractOCR\__init__.py:419
+msgid "Cancel scanning"
+msgstr ""
+
+#. Translators: Informing user the process was terminated
+#: addon\globalPlugins\tesseractOCR\__init__.py:441
+msgid "Scanning process terminated!"
+msgstr ""
+
+#. Translators: Asking user to enter the PDF password
+#: addon\globalPlugins\tesseractOCR\__init__.py:453
+msgid "Enter your password"
+msgstr ""
+
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#: buildVars.py:21
 msgid "TesseractOCR: An OCR add-on"
 msgstr ""
 
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:26
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
+#: buildVars.py:24
 msgid ""
 "Performs OCR on the selected image file, PDF, JPG, TIF, etc, or  a document "
 "through a scanner and also can get the text from an accessible PDF file.\n"
@@ -308,14 +296,23 @@ msgid ""
 "\n"
 "Windows+Control+r - Performs OCR to the selected image file\n"
 "Windows+Control+w - Scans and recognize the document in the scanner\n"
-"Windows+Control+t - To get the text from an accessible PDF\n"
+"Windows+Control+t - To get the text from an accessible PDF"
 msgstr ""
 
-#. Author(s)
-#: buildVars.py:36
+#. Brief changelog for this version
+#. Translators: what's new content for the add-on version to be shown in the add-on store
+#: buildVars.py:34
 msgid ""
-"Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail."
-"com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>"
+"Set compatibility with NVDA 2026.1.\n"
+"Updated TesseractOCR to 5.5.0.\n"
+"Updated XPDF to 4.0.6.\n"
+"It is again possible to choose the scanner to use.\n"
+"With Tesseract 5.5 the image orientation is automatically made by "
+"Tesseract.\n"
+"So, the document type \"Only paper orientation\" only announce the "
+"orientation of the image.\n"
+" Now, it only runs on 64-bits machines.\n"
+" Some bugs were corrected."
 msgstr ""
 
 #~ msgid "All types"

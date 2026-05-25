@@ -15,14 +15,12 @@ from globalVars import appArgs
 
 def is_64bit_system():
 	# Detect the real system architecture, even if running in a 32-bit process.
-	return os.environ.get("PROCESSOR_ARCHITEW6432") == "AMD64"
+	print("system = " + str(os.environ.get("PROCESSOR_ARCHITEW6432")))
+	return os.environ.get("PROCESSOR_ARCHITEW6432") in ("AMD64", "ARM64")
 
 def copy_tesseract_library_to_pending():
 	# Copy the appropriate Tesseract library to the pending install folder.
-	# Directories for 32-bit and 64-bit libraries
-	source_32bit = os.path.abspath(
-		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "libs", "tesseract32")
-	)
+	# Directory for 64-bit libraries
 	source_64bit = os.path.abspath(
 		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "libs", "tesseract64")
 	)
@@ -30,11 +28,7 @@ def copy_tesseract_library_to_pending():
 	destination = os.path.abspath(
 		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "globalPlugins", "tesseractOCR", "tesseract")
 	)
-	# Determine which library to copy
-	if is_64bit_system():
-		source_dir = source_64bit
-	else:
-		source_dir = source_32bit
+	source_dir = source_64bit
 	# Ensure the destination directory exists and is empty
 	if os.path.exists(destination):
 		shutil.rmtree(destination)
@@ -44,10 +38,7 @@ def copy_tesseract_library_to_pending():
 
 def copy_xpdf_library_to_pending():
 	# Copy the appropriate xpdf library to the pending install folder.
-	# Directories for 32-bit and 64-bit libraries
-	source_32bit = os.path.abspath(
-		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "libs", "xpdf-tools32")
-	)
+	# Directory for  64-bit libraries
 	source_64bit = os.path.abspath(
 		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "libs", "xpdf-tools64")
 	)
@@ -55,17 +46,12 @@ def copy_xpdf_library_to_pending():
 	destination = os.path.abspath(
 		os.path.join(appArgs.configPath, "addons", "tesseractOCR" + ADDON_PENDINGINSTALL_SUFFIX, "globalPlugins", "tesseractOCR", "xpdf-tools")
 	)
-	# Determine which library to copy
-	if is_64bit_system():
-		source_dir = source_64bit
-	else:
-		source_dir = source_32bit
+	source_dir = source_64bit
 	# Ensure the destination directory exists and is empty
 	if os.path.exists(destination):
 		shutil.rmtree(destination)
 	os.makedirs(destination)
 	# Copy all files and directories from source_dir to destination
-	print(source_dir, destination)
 	shutil.copytree(source_dir, destination, dirs_exist_ok=True)
 	# Remove the libs directory after copying the appropriate library
 	libs_path = os.path.abspath(

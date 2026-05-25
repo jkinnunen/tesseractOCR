@@ -1,17 +1,19 @@
 # TesseractOCR
 
 
+
 * Autores: Rui Fontes, Ângelo Abrantes e Abel Passos do Nascimento Jr.
-* Descarregar a [versão estável][1]
-* Compatibilidade: NVDA 2019.3 e seguintes
+* Compatibilidade: NVDA 2026.1 e seguintes
+
 
 
 ## Informações
 
 Este extra utiliza o motor de OCR Tesseract, de código aberto e gratuito, para executar o reconhecimento óptico de caracteres a um documento de imagem, seja PDF, JPG, TIF ou outro, sem necessidade de abrir o documento.
 O resultado é mostrado num documento de texto com o mesmo nome do original, mas com extensão .txt colocado na mesma pasta.
-Também usa o módulo wia-cmd-scanner para aceder a scanners compatíveis WIA para digitalizar e reconhecer um documento em papel.
+Também permite o acesso a scanners compatíveis WIA para efectuar OCR a um documento em papel.
 Neste caso, o documento com o resultado é colocado na pasta Documentos do usuário com o nome ocr.txt.
+
 Por último, pode obter o texto de um PDF acessível e mostrá-lo no Bloco de notas.
 No menu do NVDA, Preferências é adicionada uma secção TesseractOCR, onde poderá configurar os idiomas a utilizar no reconhecimento e o tipo de documentos a reconhecer.
 Neste diálogo, para poder fazer OCR a arquivos PDF protegidos por senha, pode marcar para ser solicitada uma senha.
@@ -21,6 +23,7 @@ Note que à medida que aumenta o número de idiomas de reconhecimento selecciona
 Por isso, recomendamos a utilização apenas dos idiomas necessários.
 Note também que a qualidade do reconhecimento pode variar de acordo com a ordem dos idiomas.
 Portanto, se o resultado do reconhecimento não for satisfatório, pode tentar outra ordenação dos idiomas.
+
 
 
 ## Comandos
@@ -36,16 +39,19 @@ Nota: Tem de ser executado antes de aparecer a caixa de diálogo que pergunta se
 Depois é só esperar que se abra o ficheiro ocr.txt.
 
 
+
 ## Problemas conhecidos
 
 * Em alguns sistemas é possível que o add-on se recuse a trabalhar devido a um erro nos comtypes...
-Em alguns sistemas é suficiente ir à pasta temp, e apagar a pasta comtypes_cache.
+Em alguns sistemas é suficiente ir à pasta temp, e apagar a pasta comtypes\_cache.
 * Quando se selecciona a opção "Documentos variados" na caixa combinada "Tipo de documento", é provável que o texto reconhecido fique com demasiadas linhas em branco.
+
 
 
 ## Idiomas suportados
 
 Os idiomas suportados nesta versão são:
+
 * Africânder
 * Albanês
 * Alemão
@@ -120,7 +126,7 @@ Os idiomas suportados nesta versão são:
 * Marati
 * Mongol
 * Neerlandês
-* Nepalês 
+* Nepalês
 * Norueguês
 * Ocitano
 * Odia
@@ -157,10 +163,12 @@ Os idiomas suportados nesta versão são:
 * Yiddish
 * Yoruba
 
- 
+
+
 ## Tipos de imagens suportados
 
 Este extra suporta os seguintes tipos de ficheiros:
+
 * PDF
 * jpg
 * tif
@@ -177,5 +185,3 @@ Este extra suporta os seguintes tipos de ficheiros:
 * spix
 * webp
 
-
-[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2024.03.24/tesseractOCR-2024.03.24.nvda-addon

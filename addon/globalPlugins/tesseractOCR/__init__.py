@@ -1,8 +1,7 @@
 #-*- coding: utf-8 -*-
 # Main file for Tesseract OCR add-on
 # written by Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail.com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>
-# Thanks to ChatGPT for some help!
-# Copyright (C) 2020-2024 Rui Fontes <rui.fontes@tiflotecnia.com>
+# Copyright (C) 2020-2026 Rui Fontes <rui.fontes@tiflotecnia.com>
 # This file is covered by the GNU General Public License.
 
 # import the necessary modules.
@@ -25,6 +24,8 @@ else:
 
 import comtypes.client
 from comtypes.client import CreateObject as COMCreate
+
+import time
 import shutil
 import psutil
 from scriptHandler import script
@@ -38,7 +39,7 @@ sys.path.append(os.path.join(PLUGIN_DIR, "tesseract", "tessdata"))
 del sys.path[-1]
 
 # Determine the maximum number of cores of the system
-num_cores = psutil.cpu_count(logical=False)
+num_cores = psutil.cpu_count(logical=True)
 # Tesseract do not manage well more than 4 cores... so, set at half of cores existent, but not more than 4.
 max_cores = min(4, int(num_cores / 2))
 # Set the maximum number of cores for Tesseract
@@ -46,8 +47,10 @@ os.environ["OMP_THREAD_LIMIT"] = str(max_cores)
 
 # Global vars
 docPath = ""
+#showPwdValue = False
 pwd = ""
 jpgFilePath = ""
+endTask = False
 scanning = False
 
 initConfiguration()
@@ -82,6 +85,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			pass
 
 	def getDocName(self):
+		#docPath = ""
 		# getting file path and name
 		# We check if we are in the Windows Explorer.
 		fg = api.getForegroundObject()
@@ -118,10 +122,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return buf.value
 
 	def convertPDFToPNG(self):
-		# Transform PDF files in PNG files, since PDF format is not accepted by Tesseract...
 		global pwd
 		from .vars import pdf2PNGPath, pngFilesPath
 		from .configPanel import shouldAskPwd
+		# Transform PDF files in PNG files, since PDF format is not accepted by Tesseract...
 		# Check if should ask for password
 		shouldAskPwd = config.conf["tesseractOCR"]["askPassword"]
 		if shouldAskPwd == True and pwd != "":
@@ -151,83 +155,63 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					f.write(list[x] + "\n")
 				f.close()
 			totalPages = len(list)
-			if extension == ".jpg":
-				# Check if it is necessary to detect paper orientation
-				from .configPanel import shouldDetect
-				if shouldDetect == True:
-					self.checkOrieintation(listPath, totalPages)
-				else:
-					# Perform OCR to all files in the list.txt
-					self.OCR_image_files(listPath, totalPages)
-			else:
-				# Perform OCR to all files in the list.txt
-				self.OCR_image_files(listPath, totalPages)
+			# Perform OCR to all files in the list.txt
+			self.OCR_image_files(listPath, totalPages)
 		else:
 			return
 
 	def checkOrieintation(self, path, totalPages):
-		from .vars import tesseractPath, pngFilesPath, shouldDetect
+		from .vars import tesseractPath, pngFilesPath
 		from .scanFromWia import jpgFilePath
 		# Removing the extension in order to use the file name as new file name with the osd extension
-		jpgFilePath = "\"" + jpgFilePath[:-4] + "\""
+		jpgFilePath1 = "\"" + jpgFilePath[:-4] + "\""
 		global pngFilesPath
-		# digitalizing from scanner, so is better have auto-orientation of the text.., so lang = "osd"
-		command = "{} {} {} --dpi 300 --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, path, jpgFilePath)
-		self.backgroundProcessing(command, totalPages)
+		command = "{} {} {} --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, jpgFilePath, jpgFilePath1)
+		self.backgroundProcessing(command, totalPages, None)
 		with open(os.path.join(PLUGIN_DIR, "images", "ocr001.osd"), "r", encoding = "utf-8") as f:
 			text = f.readlines()
 			OrientationLine = text[1]
 			if OrientationLine.endswith("270\n") is True:
-				# Announce orientation and ask if should process OCR
-				if gui.messageBox(_("Page is rotated to the right. Do you want to process the OCR?"), "TesseractOCR", style=wx.ICON_QUESTION | wx.YES_NO) == wx.YES:
-					# Perform OCR to all JPG files in the list.txt
-					self.OCR_image_files(path, totalPages)
+				# Announce orientation
+				gui.messageBox(_("Page is rotated to the right."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
 			elif OrientationLine.endswith("180\n") is True:
-				# Announce orientation and ask if should process OCR
-				if gui.messageBox(_("Page is upside down. Do you want to process the OCR?"), "TesseractOCR", style=wx.ICON_QUESTION | wx.YES_NO) == wx.YES:
-					# Perform OCR to all JPG files in the list.txt
-					self.OCR_image_files(path, totalPages)
+				# Announce orientation
+				gui.messageBox(_("Page is upside down."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
 			elif OrientationLine.endswith("90\n") is True:
-				# Announce orientation and ask if should process OCR
-				if gui.messageBox(_("Page is rotated to the left. Do you want to process the OCR?"), "TesseractOCR", style=wx.ICON_QUESTION | wx.YES_NO) == wx.YES:
-					# Perform OCR to all JPG files in the list.txt
-					self.OCR_image_files(path, totalPages)
+				# Announce orientation
+				gui.messageBox(_("Page is rotated to the left."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
 			elif OrientationLine.endswith(" 0\n") is True:
-				# Announce orientation and ask if should process OCR
-				if gui.messageBox(_("Page is positioned correctly. Do you want to process the OCR?"), "TesseractOCR", style=wx.ICON_QUESTION | wx.YES_NO) == wx.YES:
-					# Perform OCR to all JPG files in the list.txt
-					self.OCR_image_files(path, totalPages)
+				# Announce orientation
+				gui.messageBox(_("Page is positioned correctly."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
 			else:
-				return
+				gui.messageBox(_("Could not detect page orientation."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+			return
 
 	def OCR_image_files(self, path, totalPages):
 		path = path
 		from .vars import tesseractPath, pngFilesPath
 		from .configPanel import lang, doc
-		from .scanFromWia import jpgFilePath
-		# Removing the extension in order to use the file name as new file name with the txt extension
-		jpgFilePath = "\"" + jpgFilePath[:-4] + "\""
-		global scanning, pngFilesPath
+		from .vars import ocrTxtPath
+		global scanning, endTask, pngFilesPath
 		self.ocr = runInThread.RepeatBeep(delay=2.0, beep=(300, 300), isRunning=None)
 		self.ocr.start()
 		# Perform OCR to the selected image file
 		# Different command for scanned documents or files
-		lang = "osd" + "+" + lang
 		if scanning == True:
 			# Thai language is writen without spaces, so it is necessary the parameter "preserve_interword_spaces=1"
 			if "tha" in lang:
-				command = "{} {} {} --dpi 300 --psm 1 --oem 1 -c preserve_interword_spaces=1 -l {}".format(tesseractPath, path, jpgFilePath, lang)
+				command = "{} {} {} --psm 3 --oem 1 -c preserve_interword_spaces=1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, jpgFilePath, lang)
 			else:
-				command = "{} {} {} --dpi 300 --psm 1 --oem 1 -c tessedit_do_invert=0 -l {}".format(tesseractPath, path, jpgFilePath, lang)
+				command = "{} {} {} --psm 3 --oem 1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, jpgFilePath, lang)
 			self.backgroundProcessing(command, totalPages, path)
 			self.ocr.stop()
 			self.creatTXTFromVariousTXT()
 		else:
 			# Thai language is writen without spaces, so it is necessary the parameter "preserve_interword_spaces=1"
 			if "tha" in lang:
-				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c preserve_interword_spaces=1 -l {}".format(tesseractPath, path, pngFilesPath, doc, lang)
+				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c preserve_interword_spaces=1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
 			else:
-				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c tessedit_do_invert=0 -l {}".format(tesseractPath, path, pngFilesPath, doc, lang)
+				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
 			self.backgroundProcessing(command, totalPages, path)
 			self.ocr.stop()
 			self.creatTXTFromVariousTXT()
@@ -247,6 +231,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		command = 'copy "%s" "%s"' %(os.path.join(PLUGIN_DIR, "images", "oc*.txt"), outputFilePath)
 		subprocess.call(command, shell = True)
 		self.showResults(outputFilePath)
+		endTask = False
 
 	def convertPDFToTXT(self, docPath, outputFilePath):
 		# Get the accessible text from the PDF file
@@ -299,8 +284,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.createList(".png")
 
 	def doRoutines1(self):
-		totalPages = 0
 		# Perform OCR to the selected image file...
+		totalPages = 0
 		self.OCR_image_files(docPath, totalPages)
 
 	def doRoutines2(self):
@@ -317,10 +302,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			# The process was not stopped, so lets keep running...
 			self.scan.stop()
-			self.createList(".jpg")
+			from .vars import listPath
+			from .configPanel import doc
+			if doc == 1:
+				self.checkOrieintation(listPath, 1)
+			else:
+				self.createList(".jpg")
 			scanning = False
 
-	def doRoutines3(self, docPath):
+	def doRoutines3(self):
 		# Get the text from the PDF
 		baseName, _ = os.path.splitext(docPath)
 		outputFilePath = (baseName + '.txt')+"\""
@@ -330,50 +320,57 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Message to be announced during Keyboard Help
 		description=_("Performs OCR to focused file in File Explorer"),
 		category="TesseractOCR",
-		gesture="kb:control+windows+r"
-	)
+		gesture="kb:control+windows+r")
 	def script_OCRFile(self, gesture):
 		from .vars import suppFiles
 		# Check if we are in the Windows Explorer.
 		fg = api.getForegroundObject()
 		if fg.appModule.appName != "explorer":
-			ui.message(_("You are not in File Explorer to perform OCR on an image file..."))
+			# Translators: Announcing we are not in File Explorer and the key stroke will not do anything...
+			ui.message(_("You are not in File Explorer to perform OCR on a image file..."))
 			return
-
+		else:
+			pass
+		# Delete the files from previous OCR
 		self.deleteFiles()
-
+		# Obtain the full path of the selected file
 		global docPath
 		docPath = self.getDocName()
+		# Check if is a supported file, and if yes if it is PDF or image file
+		# The last [:-1] is to remove the last quote sign...
 		ext = docPath.split(".")[-1].lower()[:-1]
 		if ext == "pdf":
-			ui.message(_("Processing... Please wait... This operation can take some seconds..."))
+			# Translators: Asking to wait untill the process is concluded
+			ui.message(_("Processing... Please wait... This operation can takes some seconds..."))
 			from .configPanel import shouldAskPwd
-			shouldAskPwd = config.conf["tesseractOCR"]["askPassword"]
 			if shouldAskPwd == True:
-				self.dialog0 = Password(gui.mainFrame)
-				if not self.dialog0.IsShown():
+				dialog0 = Password(gui.mainFrame)
+				if not dialog0.IsShown():
 					gui.mainFrame.prePopup()
-					self.dialog0.Show()
+					dialog0.Show()
 					gui.mainFrame.postPopup()
+			else:
+				pass
 			# Starting the PDF recognition process
 			self.recogPDF = threading.Thread(target = self.doRoutines)
 			self.recogPDF.daemon = True
 			self.recogPDF.start()
-
 		elif ext in suppFiles:
-			ui.message(_("Processing... Please wait... This operation can take some seconds..."))
-			self.recogFile = threading.Thread(target=self.doRoutines1)
+			# Translators: Asking to wait untill the process is concluded
+			ui.message(_("Processing... Please wait... This operation can takes some seconds..."))
+			# Starting the image file recognition process
+			self.recogFile = threading.Thread(target = self.doRoutines1)
 			self.recogFile.daemon = True
 			self.recogFile.start()
 		else:
+			# Translators: Informing that the file is not from supported types...
 			ui.message(_("File not supported"))
 
 	@script(
 		# For translators: Message to be announced during Keyboard Help
 		description=_("Performs OCR to a document on the scanner"),
 		category="TesseractOCR",
-		gesture = "kb:control+windows+w"
-	)
+		gesture = "kb:control+windows+w")
 	def script_OCRFromScanner(self, gesture):
 		# Delete the files from previous OCR
 		self.deleteFiles()
@@ -390,8 +387,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Message to be announced during Keyboard Help
 		description=_("Gets the text from focused accessible PDF file in File Explorer"),
 		category="TesseractOCR",
-		gesture="kb:control+windows+t"
-	)
+		gesture="kb:control+windows+t")
 	def script_GetText(self, gesture):
 		# Check if we are in the Windows Explorer.
 		fg = api.getForegroundObject()
@@ -404,6 +400,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Delete the files from previous OCR
 		self.deleteFiles()
 		# Obtain the full path of the selected file
+		global docPath
 		docPath = self.getDocName()
 		# Check if is a supported file, and if yes if it is PDF or image file
 		# The last [:-1] is to remove the last quote sign...
@@ -412,7 +409,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: Asking to wait untill the process is concluded
 			ui.message(_("Processing... Please wait... This operation can takes some seconds..."))
 			# Starting the process
-			self.doRoutines3(docPath)
+			self.doRoutines3()
 		else:
 			# Translators: Informing that the file is not from supported types...
 			ui.message(_("File not supported"))
@@ -421,14 +418,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Message to be announced during Keyboard Help
 		description=_("Cancel scanning"),
 		category="TesseractOCR",
-		gesture="kb:control+windows+c"
-	)
+		gesture="kb:control+windows+c")
 	def script_stopScanning(self, gesture):
-		from .scanFromWia import scan_thread  # Import the global scan_thread from scanFromWia
-		global scan_thread
+		from .scanFromWia import ScanThread  # Import the global scan_thread from scanFromWia
+		global ScanThread
 		# Stop the scanning thread if it exists
-		if scan_thread and scan_thread.is_alive():
-			scan_thread.stop()
+		if ScanThread and ScanThread.is_alive():
+			ScanThread.stop()
 			if hasattr(self, 'digitalize') and self.digitalize.is_alive():
 				self._stop_event.set()  # Signal to stop the digitalize thread
 		try:
@@ -491,3 +487,6 @@ class Password(wx.Dialog):
 		self.Destroy()
 		return pwd
 		event.Skip()
+		# To reset the password...
+		pwd = ""
+

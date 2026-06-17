@@ -10,7 +10,6 @@ from .runInThread import *
 from .vars import *
 from .configPanel import *
 import comtypes.client
-import time
 
 # To start the translation process
 addonHandler.initTranslation()
@@ -22,43 +21,44 @@ jpgFilePath = ""
 class ScanThread(threading.Thread):
 	def run(self):
 		from .configPanel import DPI, scanner
-		global endTask, num, jpgFilePath
+		# Create WIA connection
+		d = comtypes.client.CreateObject("WIA.DeviceManager")
+		# Check if WIA devices are present
+		if not d.DeviceInfos.count:
+			# Translators: Reported when no WIA devices are available
+			ui.message(_("No WIA devices available. Please check if your scanner is conected and if is WIA compatible"))
+			return
+		# Connect with scanner devices
+		# Getting the selected device in config or the first available...
+		devices = []
+		for i in range(1, d.DeviceInfos.Count + 1):
+			info = d.DeviceInfos(i)
+			name = info.Properties("Name").Value
+			devices.append((name, i))
+
+		scanner = config.conf.get("tesseractOCR", {}).get("device")
+		for name, index in devices:
+			if name == scanner:
+				DEV = index
+				break
+			else:
+				DEV = devices[0][1]
+		config.conf["tesseractOCR"]["device"] = devices[0][0]
+		s = d.DeviceInfos(str(DEV)).Connect
+		item = s().Items(1)
+		# Set scanner properties
+		# 1 = Color, 2 = Grayscale, 4 = Black and White
+		item.Properties("6146").Value = 2
+		# Resolution in DPI
+		item.Properties("6147").Value = DPI
+
+		global endTask, num, jpgFilePath, Orientation
 		num = ""
 		n = 1
 		# Create routine for multiple scannings
 		while n <= 999:
 			num = "{:03d}".format(n)
 			jpgFilePath = os.path.join(PLUGIN_DIR, "images", "ocr" + num + ".jpg")
-			# Create WIA connection
-			d = comtypes.client.CreateObject("WIA.DeviceManager")
-			# Check if WIA devices are present
-			if not d.DeviceInfos.count:
-				# Translators: Reported when no WIA devices are available
-				ui.message(_("No WIA devices available. Please check if your scanner is conected and if is WIA compatible"))
-				return
-			# Connect with scanner devices
-			# Getting the selected device in config or the first available...
-			devices = []
-			for i in range(1, d.DeviceInfos.Count + 1):
-				info = d.DeviceInfos(i)
-				name = info.Properties("Name").Value
-				devices.append((name, i))
-
-			scanner = config.conf.get("tesseractOCR", {}).get("device")
-			for name, index in devices:
-				if name == scanner:
-					DEV = index
-					break
-				else:
-					DEV = devices[0][1]
-			config.conf["tesseractOCR"]["device"] = devices[0][0]
-			s = d.DeviceInfos(str(DEV)).Connect
-			item = s().Items(1)
-			# Set scanner properties
-			# 1 = Color, 2 = Grayscale, 4 = Black and White
-			item.Properties("6146").Value = 2
-			# Resolution in DPI
-			item.Properties("6147").Value = DPI
 			# Digitalize one page from scanner
 			try:
 				image = item.Transfer(comtypes.gen.WIA.wiaFormatJPEG)
@@ -79,6 +79,8 @@ class ScanThread(threading.Thread):
 						n = 1000
 			else:
 				image.SaveFile(jpgFilePath)
+				if Orientation == 0:
+					return
 				if endTask == False:
 					# Check if are more pages to scan...
 					if gui.messageBox(_("Do you want to scan one more page?"), "TesseractOCR", style=wx.ICON_QUESTION | wx.YES_NO) == wx.YES:
@@ -91,10 +93,10 @@ class ScanThread(threading.Thread):
 
 
 class ScanFromWia():
-	def run(self):
-		global endTask
+	def run(self, orientation):
+		global endTask, Orientation
+		Orientation = orientation
 		endTask = False
-		DevMan = comtypes.client.CreateObject("WIA.DeviceManager")
 		scan = ScanThread()
 		scan.start()
 		scan.join()

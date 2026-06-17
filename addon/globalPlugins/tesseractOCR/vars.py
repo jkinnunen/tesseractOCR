@@ -29,9 +29,8 @@ suppFiles = ["bmp", "pnm", "pbm", "pgm", "png", "jpg", "jp2", "gif", "tif", "jfi
 # Location of files:
 pngFilesPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr")+"\""    # Folder where to place the PNG files extracted from the PDF file
 listPath = "\""+os.path.join (PLUGIN_DIR, "list.txt")+"\""             # Location of the PNG files list
-ocrTxtPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr.txt")+"\""  # Location of the text file with the results
-textFilesPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr.txt")+"\"" # Folder where to place the txt file extracted from the PDF file
-#jpgFilePath = os.path.join(PLUGIN_DIR, "images")
+imagesPath = os.path.join(PLUGIN_DIR, "images")
+ocrTxtPath = "\""+os.path.join (PLUGIN_DIR, "images", "ocr")+"\""  # Location of the text file with the results
 
 def initConfiguration():
 	confspec = {

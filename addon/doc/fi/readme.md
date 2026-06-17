@@ -1,43 +1,49 @@
 # TesseractOCR
 
 
+
 * Tekijät: Rui Fontes, Ângelo Abrantes ja Abel Passos do Nascimento nuorempi
-* Lataa [vakaa versio][1]
-* Yhteensopivuus: NVDA 2019.3 ja uudemmat
+* Yhteensopivuus: NVDA 2026.1 ja uudemmat
+
 
 
 ## Tiedot
 
-Tämä lisäosa käyttää ilmaista, avoimen lähdekoodin Tesseract-tekstintunnistusmoottoria tekstintunnistuksen suorittamiseen kuvatiedostolle (PDF, JPG, TIF ja muut) tarvitsematta avata sitä.
-Se mahdollistaa myös WIA-yhteensopivan scannerin käytön tekstintunnistuksen suorittamiseen paperimuotoisille asiakirjoille.
-Finally, it also can get the accessible text from an accessible PDF.
+Tämä lisäosa käyttää ilmaista ja avoimen lähdekoodin Tesseract OCR -moottoria tekstintunnistuksen suorittamiseen kuvatiedostolle (kuten PDF, JPG tai TIF) tarvitsematta avata sitä.
+Tunnistuksen tuloksen sisältävä tekstitiedosto tallennetaan samaan kansioon alkuperäisen tiedoston kanssa samalla nimellä, mutta .txt-tunnisteella.
+Lisäosalla voidaan myös suorittaa tekstintunnistus paperiasiakirjoille WIA-yhteensopivien skannereiden avulla.
+Tulokset näytetään käyttäjän Tiedostot-kansioon tallennettavassa OCR.txt-tiedostossa.
+Lisäosa pystyy myös poimimaan tekstin saavutettavista PDF-tiedostoista XPDF-työkalujen avulla.
 NVDA:n asetusvalintaikkunaan on lisätty TesseractOCR-kategoria, jossa voit muuttaa seuraavia asetuksia:
-- Tunnistuksessa käytettävät kielet
-- Tunnistettavat asiakirjaformaatit
-- Kysytäänkö PDF-asiakirjan salasanaa. Jos tämä asetus on valittuna ja PDF-ää ei ole suojattu salasanalla, paina Enter salasanaa pyytävässä valintaikkunassa.
-- Valitse käytettävä skanneri
-- Määritä skannerin tarkkuus väliltä 150–400 pistettä tuumalla.
+
+* Tunnistuksessa käytettävät kielet
+* Tunnistettavat asiakirjamuodot
+* Kysytäänkö PDF-asiakirjan salasanaa. Jos tämä asetus on valittuna ja PDF-ää ei ole suojattu salasanalla, paina Enter salasanaa pyytävässä valintaikkunassa.
+* Määritä skannerin tarkkuus väliltä 150–400 pistettä tuumalla.
+* Paperin suunnan tunnistus
+* Tunnistuksen edistymistä ilmaisevat merkkiäänet
 
 Lisäosaan sisältyviä englantia ja portugalia lukuun ottamatta tunnistuskielet ladataan ja asennetaan niitä valittaessa.
 Huom: Tekstintunnistus kestää sitä kauemmin, mitä enemmän tunnistuskieliä on valittuna.
-Siksi suosittelemme, että käytät vain tarvitsemiasi kieliä.
-Huomaa myös, että tunnistuksen laatu voi vaihdella sen mukaan, missä järjestyksessä kielet ovat.
-Siksi kannattaa kokeilla järjestää kielet eri tavalla, jos tunnistuksen tulos ei ole tyydyttävä.
+Tämän vuoksi suosittelemme, että käytät vain tarvitsemiasi kieliä.
+Huomaa myös, että tunnistuksen laatu saattaa vaihdella sen mukaan, missä järjestyksessä kielet ovat.
+Tästä syystä kannattaa kokeilla järjestää kielet eri tavalla, jos tunnistuksen tulos ei ole tyydyttävä.
+
 
 
 ## Pikanäppäimet
 
 Oletuskomennot ovat:
-Win+Ctrl+R: Suorittaa tekstintunnistuksen valitulle asiakirjalle
 Win+Ctrl+W: Skannaa skannerissa olevan asiakirjan ja suorittaa sille tekstintunnistuksen
-Windows+Control+t - To get the text from an accessible PDF;
+Win+Ctrl+R: Suorittaa tekstintunnistuksen valitulle asiakirjalle
+Win+Ctrl+T: Poimii tekstin saavutettavasta PDF-tiedostosta
 Win+Ctrl+C: Peruuttaa skannauksen
 Huom: Komentoa on käytettävä ennen lisäsivujen skannausta kysyvän valintaikkunan ilmestymistä.
 
-Tunnistettu teksti ilmestyy jonkin ajan kuluttua erilliseen ikkunaan, jossa voit tarkastella sitä.
-Muista tallentaa tunnistettu teksti, jos haluat säilyttää sen, koska tunnistuksen tulokset poistetaan, kun seuraava tunnistusprosessi alkaa.
+Tunnistetun tekstin sisältävä tekstitiedosto avautuu jonkin ajan kuluttua.
 
-Näitä komentoja on mahdollista muuttaa \"Näppäinkomennot\"-valintaikkunan \"TesseractOCR\"-osiossa.
+Näitä komentoja on mahdollista muuttaa Näppäinkomennot-valintaikkunan TesseractOCR-osiossa.
+
 
 
 ## Tunnetut ongelmat
@@ -46,9 +52,11 @@ Näitä komentoja on mahdollista muuttaa \"Näppäinkomennot\"-valintaikkunan \"
 Tämä on tunnettu ongelma Tesseractissa, eikä toistaiseksi ole löytynyt sellaista ratkaisua, jota käytettäessä tiedoston käsittely ei kestäisi kauan.
 
 
+
 ## Tuetut kielet
 
 Tämä versio tukee seuraavia kieliä:
+
 * afrikaans
 * albania
 * amhara
@@ -141,7 +149,7 @@ Tämä versio tukee seuraavia kieliä:
 * swahili
 * ruotsi
 * syyria
-* tadžik
+* tadžikki
 * tamili
 * tataari
 * telugu
@@ -161,9 +169,11 @@ Tämä versio tukee seuraavia kieliä:
 * joruba
 
 
-## Tuetut kuvaformaatit
+
+## Tuetut kuvamuodot
 
 Tämä lisäosa tukee seuraavia tiedostotyyppejä:
+
 * PDF
 * JPG
 * TIF
@@ -180,5 +190,3 @@ Tämä lisäosa tukee seuraavia tiedostotyyppejä:
 * SPIX
 * WebP
 
-
-[1]: https://github.com/ruifontes/tesseractOCR/releases/download/2025.06.14/tesseractOCR-2025.06.14.nvda-addon

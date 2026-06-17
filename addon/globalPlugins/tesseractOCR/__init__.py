@@ -132,7 +132,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			command = "{} -r 300 -gray -upw {} {} {}".format(pdf2PNGPath, pwd, docPath, pngFilesPath)
 		else:
 			command = "{} -r 300 -gray {} {}".format(pdf2PNGPath, docPath, pngFilesPath)
-		totalPages = "0"
+		totalPages = 1
 		self.backgroundProcessing(command, totalPages, pngFilesPath)
 
 	def createList(self, extension):
@@ -155,63 +155,128 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					f.write(list[x] + "\n")
 				f.close()
 			totalPages = len(list)
-			# Perform OCR to all files in the list.txt
-			self.OCR_image_files(listPath, totalPages)
+			# Check text orientation
+			self.checkOrientation(listPath, totalPages)
 		else:
 			return
 
-	def checkOrieintation(self, path, totalPages):
-		from .vars import tesseractPath, pngFilesPath
+	def checkOrientation(self, path, totalPages):
+		from .vars import tesseractPath, imagesPath
 		from .scanFromWia import jpgFilePath
-		# Removing the extension in order to use the file name as new file name with the osd extension
-		jpgFilePath1 = "\"" + jpgFilePath[:-4] + "\""
-		global pngFilesPath
-		command = "{} {} {} --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, jpgFilePath, jpgFilePath1)
-		self.backgroundProcessing(command, totalPages, None)
-		with open(os.path.join(PLUGIN_DIR, "images", "ocr001.osd"), "r", encoding = "utf-8") as f:
-			text = f.readlines()
-			OrientationLine = text[1]
-			if OrientationLine.endswith("270\n") is True:
-				# Announce orientation
-				gui.messageBox(_("Page is rotated to the right."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
-			elif OrientationLine.endswith("180\n") is True:
-				# Announce orientation
-				gui.messageBox(_("Page is upside down."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
-			elif OrientationLine.endswith("90\n") is True:
-				# Announce orientation
-				gui.messageBox(_("Page is rotated to the left."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
-			elif OrientationLine.endswith(" 0\n") is True:
-				# Announce orientation
-				gui.messageBox(_("Page is positioned correctly."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+		jpgFilePath = "\""+jpgFilePath+"\""
+		if totalPages == 0:
+			# Removing the extension in order to use the file name as new file name with the osd extension
+			jpgFilePath1 = jpgFilePath[:-5] + "\""
+			command = "{} {} {} --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, jpgFilePath, jpgFilePath1)
+			self.backgroundProcessing(command, totalPages, None)
+			with open(os.path.join(PLUGIN_DIR, "images", "ocr001.osd"), "r", encoding = "utf-8") as f:
+				text = f.readlines()
+				OrientationLine = text[1]
+				if OrientationLine.endswith("270\n"):
+					# Announce orientation
+					gui.messageBox(_("Page is rotated to the right."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+				elif OrientationLine.endswith("180\n"):
+					# Announce orientation
+					gui.messageBox(_("Page is upside down."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+				elif OrientationLine.endswith("90\n"):
+					# Announce orientation
+					gui.messageBox(_("Page is rotated to the left."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+				elif OrientationLine.endswith(" 0\n"):
+					# Announce orientation
+					gui.messageBox(_("Page is positioned correctly."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+				else:
+					gui.messageBox(_("Could not detect page orientation."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
+				return
+		else:
+			with open(os.path.join(PLUGIN_DIR, "list.txt"), "r", encoding = "utf-8") as f:
+				text = f.readlines()
+				pngFilePath = text[0]
+			if pngFilePath.endswith("png\n"):
+				num = ""
+				n = 1
+				# Create routine for multiple orientation checks
+				while n <= totalPages:
+					num = "{:06d}".format(n)
+					jpgFilePath = "\"" + os.path.join(PLUGIN_DIR, "images", "ocr-" + num + ".png") + "\""
+					# Removing the extension in order to use the file name as new file name with the osd extension
+					jpgFilePath1 = jpgFilePath[:-5] + "\""
+					command = "{} {} {} --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, jpgFilePath, jpgFilePath1)
+					self.backgroundProcessing(command, totalPages, None)
+					with open(os.path.join(PLUGIN_DIR, "images", "ocr-" + num + ".osd"), "r", encoding = "utf-8") as f:
+						text = f.readlines()
+						rotateLine = text[2]
+						jpgFilePath = jpgFilePath[1:-1] # To remove quotes
+						if rotateLine.endswith("270\n"):
+						 img = wx.Image(jpgFilePath).Rotate90(clockwise = False)
+						 img.SaveFile(jpgFilePath)
+						elif rotateLine.endswith("180\n"):
+						 img = wx.Image(jpgFilePath).Rotate90()
+						 img = img.Rotate90()
+						 img.SaveFile(jpgFilePath)
+						elif rotateLine.endswith("90\n"):
+						 img = wx.Image(jpgFilePath).Rotate90(clockwise = True)
+						 img.SaveFile(jpgFilePath)
+						else:
+							pass
+					n = n+1
+				# Perform OCR to all files in the list.txt
+				self.OCR_image_files(listPath, totalPages)
 			else:
-				gui.messageBox(_("Could not detect page orientation."), "TesseractOCR", style=wx.ICON_QUESTION | wx.OK)
-			return
+				num = ""
+				n = 1
+				# Create routine for multiple orientation checks
+				while n <= totalPages:
+					num = "{:03d}".format(n)
+					jpgFilePath = "\"" + os.path.join(PLUGIN_DIR, "images", "ocr" + num + ".jpg") + "\""
+					# Removing the extension in order to use the file name as new file name with the osd extension
+					jpgFilePath1 = jpgFilePath[:-5] + "\""
+					command = "{} {} {} --psm 0 --oem 1 -c tessedit_do_invert=0 -l osd quiet".format(tesseractPath, jpgFilePath, jpgFilePath1)
+					self.backgroundProcessing(command, totalPages, None)
+					with open(os.path.join(PLUGIN_DIR, "images", "ocr" + num + ".osd"), "r", encoding = "utf-8") as f:
+						text = f.readlines()
+						rotateLine = text[2]
+						jpgFilePath = jpgFilePath[1:-1] # To remove quotes
+						if rotateLine.endswith("270\n"):
+						 img = wx.Image(jpgFilePath).Rotate90(clockwise = False)
+						 img.SaveFile(jpgFilePath)
+						elif rotateLine.endswith("180\n"):
+						 img = wx.Image(jpgFilePath).Rotate90()
+						 img = img.Rotate90()
+						 img.SaveFile(jpgFilePath)
+						elif rotateLine.endswith("90\n"):
+						 img = wx.Image(jpgFilePath).Rotate90(clockwise = True)
+						 img.SaveFile(jpgFilePath)
+						else:
+							pass
+					n = n+1
+				# Perform OCR to all files in the list.txt
+				self.OCR_image_files(listPath, totalPages)
 
 	def OCR_image_files(self, path, totalPages):
 		path = path
-		from .vars import tesseractPath, pngFilesPath
+		from .vars import tesseractPath, pngFilesPath,ocrTxtPath
 		from .configPanel import lang, doc
-		from .vars import ocrTxtPath
 		global scanning, endTask, pngFilesPath
 		self.ocr = runInThread.RepeatBeep(delay=2.0, beep=(300, 300), isRunning=None)
 		self.ocr.start()
 		# Perform OCR to the selected image file
 		# Different command for scanned documents or files
+		lang="osd+"+lang
 		if scanning == True:
 			# Thai language is writen without spaces, so it is necessary the parameter "preserve_interword_spaces=1"
 			if "tha" in lang:
-				command = "{} {} {} --psm 3 --oem 1 -c preserve_interword_spaces=1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, jpgFilePath, lang)
+				command = "{} {} {} --psm 1 --oem 1 -c preserve_interword_spaces=1 -l {} osd quiet".format(tesseractPath, path, jpgFilePath, lang)
 			else:
-				command = "{} {} {} --psm 3 --oem 1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, jpgFilePath, lang)
+				command = "{} {} {} --psm 1 --oem 1 -l {} osd quiet".format(tesseractPath, path, pngFilesPath, lang)
 			self.backgroundProcessing(command, totalPages, path)
 			self.ocr.stop()
 			self.creatTXTFromVariousTXT()
 		else:
 			# Thai language is writen without spaces, so it is necessary the parameter "preserve_interword_spaces=1"
 			if "tha" in lang:
-				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c preserve_interword_spaces=1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
+				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c preserve_interword_spaces=1 -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
 			else:
-				command = "{} {} {} --dpi 300 --psm {} --oem 1 -c textord_min_linesize=2 -c orient_image=true -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
+				command = "{} {} {} --dpi 300 --psm {} --oem 1 -l {} quiet".format(tesseractPath, path, ocrTxtPath, doc, lang)
 			self.backgroundProcessing(command, totalPages, path)
 			self.ocr.stop()
 			self.creatTXTFromVariousTXT()
@@ -263,7 +328,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				pass
 			elif stdout == b"":
 				pass
-		if pages == 0:
+		if pages in (0, -1):
 			self.showResults(file)
 
 	def showResults(self, file):
@@ -285,17 +350,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def doRoutines1(self):
 		# Perform OCR to the selected image file...
-		totalPages = 0
+		totalPages = 1
 		self.OCR_image_files(docPath, totalPages)
 
 	def doRoutines2(self):
 		global scanning
-		scanning = True
 		self.scan = runInThread.RepeatBeep(delay=2.0, beep=(200, 200), isRunning=None)
 		self.scan.start()
 		# Digitalize page from scanner
 		if not self._stop_event.is_set():  # Verify if the thread is signalized to stop
-			ScanFromWia.run(self)
+			from .configPanel import doc
+			if doc == 1:
+				ScanFromWia.run(self, 0)
+			else:
+				scanning = True
+				ScanFromWia.run(self, 1)
 			if self._stop_event.is_set():
 				# Process was stopped
 				self.scan.stop()
@@ -303,12 +372,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# The process was not stopped, so lets keep running...
 			self.scan.stop()
 			from .vars import listPath
-			from .configPanel import doc
 			if doc == 1:
-				self.checkOrieintation(listPath, 1)
+				self.checkOrientation(listPath, 0)
 			else:
 				self.createList(".jpg")
-			scanning = False
 
 	def doRoutines3(self):
 		# Get the text from the PDF

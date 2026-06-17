@@ -28,17 +28,11 @@ Windows+Control+r - Performs OCR to the selected image file
 Windows+Control+w - Scans and recognize the document in the scanner
 Windows+Control+t - To get the text from an accessible PDF"""),
 	# version
-	addon_version = "2026.05.24",
+	addon_version = "2026.06.16",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Set compatibility with NVDA 2026.1.
-Updated TesseractOCR to 5.5.0.
-Updated XPDF to 4.0.6.
-It is again possible to choose the scanner to use.
-With Tesseract 5.5 the image orientation is automatically made by Tesseract.
-So, the document type "Only paper orientation" only announce the orientation of the image.
- Now, it only runs on 64-bits machines.
- Some bugs were corrected."""),
+	addon_changelog=_("""Correction in image orientation since Tesseract don't do it properly.
+Some bugs were corrected."""),
 	# Author(s)
 	addon_author = "Rui Fontes <rui.fontes@tiflotecnia.com>, Ângelo Abrantes <ampa4374@gmail.com> and Abel Passos do Nascimento Jr. <abel.passos@gmail.com>",
 	# URL for the add-on documentation support
